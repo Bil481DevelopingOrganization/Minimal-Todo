@@ -7,13 +7,18 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.avjindersinghsekhon.minimaltodo.About.AboutActivity;
+import com.example.avjindersinghsekhon.minimaltodo.AddToDo.SendMailActivity;
 import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultActivity;
 import com.example.avjindersinghsekhon.minimaltodo.R;
 import com.example.avjindersinghsekhon.minimaltodo.Settings.SettingsActivity;
 
 public class MainActivity extends AppDefaultActivity {
+
+    private Button sendEmailButton;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +28,18 @@ public class MainActivity extends AppDefaultActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(false);
         }
+        sendEmailButton = (Button) findViewById(R.id.button);
+        sendEmailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    openSendMailActivity();
+            }
+        });
+    }
+
+    public void openSendMailActivity(){
+        Intent intent = new Intent(this, SendMailActivity.class);
+        startActivity(intent);
     }
 
     @Override

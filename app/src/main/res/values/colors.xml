@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="amber">#FFC107</color>
+    <color name="amber">#ffc107</color>
     <color name="red_primary">#D32F2F</color>
     <color name="red_secondary">#F44336</color>
     <color name="divider_color">#B6B6B6</color>

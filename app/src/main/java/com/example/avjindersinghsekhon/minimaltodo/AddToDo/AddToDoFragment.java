@@ -54,7 +54,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
     private static final String TAG = "AddToDoFragment";
     private Date mLastEdited;
 
-    private EditText mToDoTextBodyEditText;
+    public EditText mToDoTextBodyEditText;
     private EditText mToDoTextBodyDescription;
 
     private SwitchCompat mToDoDateSwitch;
@@ -173,6 +173,8 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), SendMailActivity.class);
+                intent.putExtra("titleValue", mToDoTextBodyEditText.getText().toString());
+                intent.putExtra("descriptionValue", mToDoTextBodyDescription.getText().toString());
                 startActivity(intent);
             }
         });

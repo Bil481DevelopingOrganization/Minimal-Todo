@@ -25,14 +25,18 @@ public class ToDoItem implements Serializable {
     private static final String TODODATE = "tododate";
     private static final String TODOIDENTIFIER = "todoidentifier";
 
+    private static final String TODOPRIORITY = "todopriority";
 
-    public ToDoItem(String todoBody,String tododescription,  boolean hasReminder, Date toDoDate) {
+    private String mTodoPriority;
+
+    public ToDoItem(String todoBody,String tododescription,  boolean hasReminder, Date toDoDate, String priority) {
         mToDoText = todoBody;
         mHasReminder = hasReminder;
         mToDoDate = toDoDate;
         mToDoDescription = tododescription;
         mTodoColor = 1677725;
         mTodoIdentifier = UUID.randomUUID();
+        mTodoPriority = priority;
     }
 
     public ToDoItem(JSONObject jsonObject) throws JSONException {
@@ -40,6 +44,8 @@ public class ToDoItem implements Serializable {
         mToDoDescription = jsonObject.getString(TODODESCRIPTION);
         mHasReminder = jsonObject.getBoolean(TODOREMINDER);
         mTodoColor = jsonObject.getInt(TODOCOLOR);
+
+        mTodoPriority = jsonObject.getString(TODOPRIORITY);
 
         mTodoIdentifier = UUID.fromString(jsonObject.getString(TODOIDENTIFIER));
 
@@ -56,6 +62,8 @@ public class ToDoItem implements Serializable {
         jsonObject.put(TODOTEXT, mToDoText);
         jsonObject.put(TODOREMINDER, mHasReminder);
         jsonObject.put(TODODESCRIPTION, mToDoDescription);
+
+        jsonObject.put(TODOPRIORITY, mTodoPriority);
 //        jsonObject.put(TODOLASTEDITED, mLastEdited.getTime());
         if (mToDoDate != null) {
             jsonObject.put(TODODATE, mToDoDate.getTime());
@@ -68,12 +76,16 @@ public class ToDoItem implements Serializable {
 
 
     public ToDoItem() {
-        this("Clean my room","Sweep and Mop my Room", true, new Date());
+        this("Clean my room","Sweep and Mop my Room", true, new Date(), "");
     }
 
     public String getmToDoDescription() { return mToDoDescription;}
 
     public void setmToDoDescription(String mToDoDescription){this.mToDoDescription = mToDoDescription;}
+
+    public String getmTodoPriority() { return mTodoPriority;}
+
+    public void setmTodoPriority(String mTodoPriority) {this.mTodoPriority = mTodoPriority;}
 
     public String getToDoText() {
         return mToDoText;

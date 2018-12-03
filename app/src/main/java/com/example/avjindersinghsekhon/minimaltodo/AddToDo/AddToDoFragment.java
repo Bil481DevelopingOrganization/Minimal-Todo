@@ -22,11 +22,13 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.content.ClipboardManager;
 import android.widget.Toast;
@@ -81,6 +83,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 
     private String mUserEnteredText;
     private String mUserEnteredDescription;
+    private String mUserEnteredPriority = "1";
     private boolean mUserHasReminder;
     private Toolbar mToolbar;
     private Date mUserReminderDate;
@@ -90,6 +93,9 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
     private LinearLayout mContainerLayout;
     private String theme;
     AnalyticsApplication app;
+
+    private LinearLayout mPriorityLayout;
+    private Spinner mPrioritySpinner;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -134,6 +140,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
         mUserEnteredDescription = mUserToDoItem.getmToDoDescription();
         mUserHasReminder = mUserToDoItem.hasReminder();
         mUserReminderDate = mUserToDoItem.getToDoDate();
+        mUserEnteredPriority = mUserToDoItem.getmTodoPriority();
         mUserColor = mUserToDoItem.getTodoColor();
 
 
@@ -152,7 +159,19 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
             reminderRemindMeTextView.setTextColor(Color.WHITE);
         }
 
+        mPriorityLayout = (LinearLayout) view.findViewById(R.id.priorityLayout);
+        mPrioritySpinner = (Spinner) view.findViewById(R.id.priority);
 
+        String[] arraySpinner = new String[] {
+                "1", "2", "3", "4", "5", "6", "7", "8", "9"
+        };
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(app, android.R.layout.simple_spinner_item, arraySpinner);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mPrioritySpinner.setAdapter(adapter);
+
+
+        mPrioritySpinner.setSelection(Integer.parseInt(mUserEnteredPriority)-1);
 
         //Button for Copy to Clipboard
         mCopyClipboard = (Button) view.findViewById(R.id.copyclipboard);
@@ -605,6 +624,8 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
             calendar.set(Calendar.SECOND, 0);
             mUserReminderDate = calendar.getTime();
         }
+        mUserEnteredPriority = mPrioritySpinner.getSelectedItem().toString();
+        mUserToDoItem.setmTodoPriority(mUserEnteredPriority);
         mUserToDoItem.setHasReminder(mUserHasReminder);
         mUserToDoItem.setToDoDate(mUserReminderDate);
         mUserToDoItem.setTodoColor(mUserColor);

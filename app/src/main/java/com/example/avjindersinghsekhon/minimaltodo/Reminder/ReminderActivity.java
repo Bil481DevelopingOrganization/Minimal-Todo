@@ -1,7 +1,6 @@
 package com.example.avjindersinghsekhon.minimaltodo.Reminder;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 
 import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultActivity;
 import com.example.avjindersinghsekhon.minimaltodo.R;
@@ -19,7 +18,6 @@ public class ReminderActivity extends AppDefaultActivity {
         return R.layout.reminder_layout;
     }
 
-    @NonNull
     @Override
     protected ReminderFragment createInitialFragment() {
         return ReminderFragment.newInstance();

@@ -5,7 +5,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.PreferenceFragment;
+import android.view.View;
+import android.widget.CheckBox;
 
+import com.example.avjindersinghsekhon.minimaltodo.AddToDo.AddToDoFragment;
 import com.example.avjindersinghsekhon.minimaltodo.Analytics.AnalyticsApplication;
 import com.example.avjindersinghsekhon.minimaltodo.Main.MainFragment;
 import com.example.avjindersinghsekhon.minimaltodo.R;
@@ -14,6 +17,7 @@ import com.example.avjindersinghsekhon.minimaltodo.Utility.PreferenceKeys;
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
     AnalyticsApplication app;
 
+    public static int slideForDeleteVariable = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,10 +44,23 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
                 themeEditor.putString(MainFragment.THEME_SAVED, MainFragment.LIGHTTHEME);
             }
             themeEditor.apply();
-
             getActivity().recreate();
+
         }
-    }
+            //Control for sliding delete function
+            if (key.equals(preferenceKeys.sliding_for_delete_pref_key)) {
+
+                CheckBoxPreference checkBoxPreferenceForDeleting = (CheckBoxPreference) findPreference(preferenceKeys.sliding_for_delete_pref_key);
+                if (checkBoxPreferenceForDeleting.isChecked()) {
+                    slideForDeleteVariable = 15;
+                }
+            }
+
+
+        getActivity().recreate();
+
+        }
+
 
     @Override
     public void onResume() {

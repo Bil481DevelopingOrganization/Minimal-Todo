@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -49,8 +48,9 @@ public class ReminderFragment extends AppDefaultFragment {
     String theme;
     AnalyticsApplication app;
 
+
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         app = (AnalyticsApplication) getActivity().getApplication();
         app.send(this);
@@ -95,16 +95,19 @@ public class ReminderFragment extends AppDefaultFragment {
                     R.drawable.ic_snooze_white_24dp, 0, 0, 0
             );
         }
-
         mRemoveToDoButton.setOnClickListener(new View.OnClickListener() {
+
+            MainFragment mainFragment= new MainFragment();
             @Override
             public void onClick(View v) {
-                app.send(this, "Action", "Todo Removed from Reminder Activity");
-                mToDoItems.remove(mItem);
-                changeOccurred();
-                saveData();
-                closeApp();
+                if (mainFragment.removeReminderVariable == 16) {
+                    app.send(this, "Action", "Todo Removed from Reminder Activity");
+                    mToDoItems.remove(mItem);
+                    changeOccurred();
+                    saveData();
+                    closeApp();
 //                finish();
+                }
             }
         });
 

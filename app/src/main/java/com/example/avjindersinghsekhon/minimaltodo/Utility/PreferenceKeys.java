@@ -9,8 +9,12 @@ import com.example.avjindersinghsekhon.minimaltodo.R;
  */
 public class PreferenceKeys {
     public final String night_mode_pref_key;
+    public final String sliding_for_delete_pref_key;
 
     public PreferenceKeys(Resources resources) {
         night_mode_pref_key = resources.getString(R.string.night_mode_pref_key);
+        sliding_for_delete_pref_key = resources.getString(R.string.sliding_for_delete_pref_key);
+
+
     }
 }

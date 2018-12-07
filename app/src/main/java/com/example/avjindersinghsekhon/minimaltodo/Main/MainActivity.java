@@ -17,8 +17,6 @@ import com.example.avjindersinghsekhon.minimaltodo.Settings.SettingsActivity;
 
 public class MainActivity extends AppDefaultActivity {
 
-    private Button sendEmailButton;
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);

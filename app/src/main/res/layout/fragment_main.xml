@@ -6,6 +6,18 @@
               android:layout_height="match_parent">
 
     <!--<include layout="@layout/base_toolbar"/>-->
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="177dp"
+        android:layout_height="wrap_content"
+        android:text="Activate Sending Mail" />
+
+    <CheckBox
+        android:id="@+id/checkBoxRemoveReminder"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:text="Remove Reminder Controller" />
+
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/myCoordinatorLayout"
         android:layout_width="match_parent"

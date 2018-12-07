@@ -1,6 +1,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:animateLayoutChanges="true"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -97,10 +98,10 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="1dp"
                     android:layout_marginLeft="36dp"
-                    android:layout_marginRight="36dp"
                     android:layout_marginTop="30dp"
+                    android:layout_marginRight="36dp"
                     android:layout_weight=".5"
                     android:gravity="center"
                     android:orientation="horizontal">
@@ -120,10 +121,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:gravity="start"
-                        android:paddingBottom="8dp"
                         android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
                         android:paddingTop="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingBottom="8dp"
                         android:text="@string/remind_me"
                         android:textColor="@color/secondary_text"
                         android:textSize="16sp" />
@@ -163,8 +164,8 @@
 
                     <LinearLayout
 
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                        android:layout_width="312dp"
+                        android:layout_height="82dp"
                         android:layout_weight="1"
                         android:gravity="top">
 
@@ -205,8 +206,8 @@
 
                     <TextView
                         android:id="@+id/newToDoDateTimeReminderTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                        android:layout_width="253dp"
+                        android:layout_height="0.5dp"
                         android:layout_weight="2"
                         android:gravity="start"
                         android:text="@string/remind_date_and_time"

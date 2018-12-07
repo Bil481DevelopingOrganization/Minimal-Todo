@@ -1,13 +1,15 @@
 package com.example.avjindersinghsekhon.minimaltodo.Main;
 
+import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -23,6 +25,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,6 +42,7 @@ import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultFragment
 import com.example.avjindersinghsekhon.minimaltodo.R;
 import com.example.avjindersinghsekhon.minimaltodo.Reminder.ReminderFragment;
 import com.example.avjindersinghsekhon.minimaltodo.Settings.SettingsActivity;
+import com.example.avjindersinghsekhon.minimaltodo.Settings.SettingsFragment;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.ItemTouchHelperClass;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.RecyclerViewEmptySupport;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.StoreRetrieveData;
@@ -80,6 +86,17 @@ public class MainFragment extends AppDefaultFragment {
     public static final String DARKTHEME = "com.avjindersekon.darktheme";
     public static final String LIGHTTHEME = "com.avjindersekon.lighttheme";
     private AnalyticsApplication app;
+
+    //a is created for checkbox control and checkbox created for the widget checkbox
+    public static int a=0;
+    public CheckBox checkBoxSendingMail;
+
+    public static int removeReminderVariable=1;
+    public CheckBox checkBoxControlRemoveReminder;
+
+    //For reaching the slide delete control variable in SettingsFragment
+    SettingsFragment settingsFragment = new SettingsFragment();
+
     private String[] testStrings = {"Clean my room",
             "Water the plants",
             "Get car washed",
@@ -88,7 +105,7 @@ public class MainFragment extends AppDefaultFragment {
 
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         app = (AnalyticsApplication) getActivity().getApplication();
 //        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
@@ -141,19 +158,47 @@ public class MainFragment extends AppDefaultFragment {
         mCoordLayout = (CoordinatorLayout) view.findViewById(R.id.myCoordinatorLayout);
         mAddToDoItemFAB = (FloatingActionButton) view.findViewById(R.id.addToDoItemFAB);
 
+
+        //Send mail button activation made in here. If checkbox is checked, the send mail button will work on AddToDoFragment class.
+        checkBoxSendingMail = (CheckBox)view.findViewById(R.id.checkBox);
+        checkBoxSendingMail.setOnClickListener(new View.OnClickListener() {
+
+              @Override
+            public void onClick(View v) {
+                  if (checkBoxSendingMail.isChecked()) {
+                    //sendmailtrue= true;
+                    a=5;
+                }
+            }
+        });
+
+        //Send mail button activation made in here. If checkbox is checked, the send mail button will work on AddToDoFragment class.
+        checkBoxControlRemoveReminder = (CheckBox)view.findViewById(R.id.checkBoxRemoveReminder);
+        checkBoxControlRemoveReminder.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (checkBoxControlRemoveReminder.isChecked()) {
+                    removeReminderVariable=16;
+                }
+            }
+        });
+
         mAddToDoItemFAB.setOnClickListener(new View.OnClickListener() {
 
             @SuppressWarnings("deprecation")
             @Override
             public void onClick(View v) {
-                app.send(this, "Action", "FAB pressed");
-                Intent newTodo = new Intent(getContext(), AddToDoActivity.class);
-                ToDoItem item = new ToDoItem("","", false, null);
-                int color = ColorGenerator.MATERIAL.getRandomColor();
-                item.setTodoColor(color);
-                //noinspection ResourceType
+                    app.send(this, "Action", "FAB pressed");
+                    Intent newTodo = new Intent(getContext(), AddToDoActivity.class);
+                    ToDoItem item = new ToDoItem("", "", false, null);
+                    int color = ColorGenerator.MATERIAL.getRandomColor();
+                    item.setTodoColor(color);
+                    //noinspection ResourceType
 //                String color = getResources().getString(R.color.primary_ligher);
-                newTodo.putExtra(TODOITEM, item);
+                    newTodo.putExtra(TODOITEM, item);
+
+
 //                View decorView = getWindow().getDecorView();
 //                View navView= decorView.findViewById(android.R.id.navigationBarBackground);
 //                View statusView = decorView.findViewById(android.R.id.statusBarBackground);
@@ -176,8 +221,8 @@ public class MainFragment extends AppDefaultFragment {
 //                startActivity(new Intent(MainActivity.this, TestLayout.class), options.toBundle());
 //                startActivityForResult(newTodo, REQUEST_ID_TODO_ITEM, options.toBundle());
 
-                startActivityForResult(newTodo, REQUEST_ID_TODO_ITEM);
-            }
+                    startActivityForResult(newTodo, REQUEST_ID_TODO_ITEM);
+                }
         });
 
 
@@ -221,6 +266,7 @@ public class MainFragment extends AppDefaultFragment {
 
 
     }
+
 
     public static ArrayList<ToDoItem> getLocallyStoredData(StoreRetrieveData storeRetrieveData) {
         ArrayList<ToDoItem> items = null;
@@ -271,6 +317,8 @@ public class MainFragment extends AppDefaultFragment {
 
 
     }
+
+
 
     @Override
     public void onStart() {
@@ -357,6 +405,7 @@ public class MainFragment extends AppDefaultFragment {
         }
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != RESULT_CANCELED && requestCode == REQUEST_ID_TODO_ITEM) {
@@ -432,6 +481,7 @@ public class MainFragment extends AppDefaultFragment {
 
     }
 
+
     public class BasicListAdapter extends RecyclerView.Adapter<BasicListAdapter.ViewHolder> implements ItemTouchHelperClass.ItemTouchHelperAdapter {
         private ArrayList<ToDoItem> items;
 
@@ -451,35 +501,40 @@ public class MainFragment extends AppDefaultFragment {
 
         @Override
         public void onItemRemoved(final int position) {
-            //Remove this line if not using Google Analytics
-            app.send(this, "Action", "Swiped Todo Away");
 
-            mJustDeletedToDoItem = items.remove(position);
-            mIndexOfDeletedToDoItem = position;
-            Intent i = new Intent(getContext(), TodoNotificationService.class);
-            deleteAlarm(i, mJustDeletedToDoItem.getIdentifier().hashCode());
-            notifyItemRemoved(position);
+
+
+                System.out.println(settingsFragment.slideForDeleteVariable);
+                //Remove this line if not using Google Analytics
+                app.send(this, "Action", "Swiped Todo Away");
+
+                mJustDeletedToDoItem = items.remove(position);
+                mIndexOfDeletedToDoItem = position;
+                Intent i = new Intent(getContext(), TodoNotificationService.class);
+                deleteAlarm(i, mJustDeletedToDoItem.getIdentifier().hashCode());
+                notifyItemRemoved(position);
 
 //            String toShow = (mJustDeletedToDoItem.getToDoText().length()>20)?mJustDeletedToDoItem.getToDoText().substring(0, 20)+"...":mJustDeletedToDoItem.getToDoText();
-            String toShow = "Todo";
-            Snackbar.make(mCoordLayout, "Deleted " + toShow, Snackbar.LENGTH_LONG)
-                    .setAction("UNDO", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
+                String toShow = "Todo";
+                Snackbar.make(mCoordLayout, "Deleted " + toShow, Snackbar.LENGTH_LONG)
+                        .setAction("UNDO", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
 
-                            //Comment the line below if not using Google Analytics
-                            app.send(this, "Action", "UNDO Pressed");
-                            items.add(mIndexOfDeletedToDoItem, mJustDeletedToDoItem);
-                            if (mJustDeletedToDoItem.getToDoDate() != null && mJustDeletedToDoItem.hasReminder()) {
-                                Intent i = new Intent(getContext(), TodoNotificationService.class);
-                                i.putExtra(TodoNotificationService.TODOTEXT, mJustDeletedToDoItem.getToDoText());
-                                i.putExtra(TodoNotificationService.TODOUUID, mJustDeletedToDoItem.getIdentifier());
-                                createAlarm(i, mJustDeletedToDoItem.getIdentifier().hashCode(), mJustDeletedToDoItem.getToDoDate().getTime());
+                                //Comment the line below if not using Google Analytics
+                                app.send(this, "Action", "UNDO Pressed");
+                                items.add(mIndexOfDeletedToDoItem, mJustDeletedToDoItem);
+                                if (mJustDeletedToDoItem.getToDoDate() != null && mJustDeletedToDoItem.hasReminder()) {
+                                    Intent i = new Intent(getContext(), TodoNotificationService.class);
+                                    i.putExtra(TodoNotificationService.TODOTEXT, mJustDeletedToDoItem.getToDoText());
+                                    i.putExtra(TodoNotificationService.TODOUUID, mJustDeletedToDoItem.getIdentifier());
+                                    createAlarm(i, mJustDeletedToDoItem.getIdentifier().hashCode(), mJustDeletedToDoItem.getToDoDate().getTime());
+                                }
+                                notifyItemInserted(mIndexOfDeletedToDoItem);
                             }
-                            notifyItemInserted(mIndexOfDeletedToDoItem);
-                        }
-                    }).show();
-        }
+                        }).show();
+            }
+
 
         @Override
         public BasicListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
         <CheckBoxPreference
-            android:title="@string/night_mode"
-            android:summaryOn="@string/night_mode_on_summary"
-            android:summaryOff="@string/night_mode_off_summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:defaultValue="false"
-            android:key="@string/night_mode_pref_key"
-            />
+            android:key="check_box_preference_1"
+            android:summaryOff="@string/night_mode_off_summary"
+            android:summaryOn="@string/night_mode_on_summary"
+            android:title="@string/night_mode" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="check_box_preference_deletion"
+            android:summary="Check for activate the sliding deletion"
+            android:title="Sliding for delete" />
+
 </PreferenceScreen>

@@ -72,7 +72,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
     private Button mChooseDateButton;
     private Button mChooseTimeButton;
     private Button mCopyClipboard;
-    private Button sendEmailButton;
+    public Button sendEmailButton;
 
     private ToDoItem mUserToDoItem;
     private FloatingActionButton mToDoSendFloatingActionButton;
@@ -96,6 +96,7 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         app = (AnalyticsApplication) getActivity().getApplication();
+
 //        setContentView(R.layout.new_to_do_layout);
         //Need references to these to change them during light/dark mode
         ImageButton reminderIconImageButton;
@@ -172,10 +173,15 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
         sendEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), SendMailActivity.class);
-                intent.putExtra("titleValue", mToDoTextBodyEditText.getText().toString());
-                intent.putExtra("descriptionValue", mToDoTextBodyDescription.getText().toString());
-                startActivity(intent);
+                MainFragment mainFragment = new MainFragment();
+
+                if (mainFragment.a==5) {
+                    Intent intent = new Intent(view.getContext(), SendMailActivity.class);
+                    intent.putExtra("titleValue", mToDoTextBodyEditText.getText().toString());
+                    intent.putExtra("descriptionValue", mToDoTextBodyDescription.getText().toString());
+
+                    startActivity(intent);
+                }
             }
         });
 
@@ -537,9 +543,6 @@ public class AddToDoFragment extends AppDefaultFragment implements DatePickerDia
 
         }
     }
-    public void openSendMailActivity(){
-
-   }
 
     public void makeResult(int result) {
         Log.d(TAG, "makeResult - ok : in");

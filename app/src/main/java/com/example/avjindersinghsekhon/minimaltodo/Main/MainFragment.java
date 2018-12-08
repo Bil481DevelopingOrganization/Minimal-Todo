@@ -37,6 +37,7 @@ import com.example.avjindersinghsekhon.minimaltodo.AppDefault.AppDefaultFragment
 import com.example.avjindersinghsekhon.minimaltodo.R;
 import com.example.avjindersinghsekhon.minimaltodo.Reminder.ReminderFragment;
 import com.example.avjindersinghsekhon.minimaltodo.Settings.SettingsActivity;
+import com.example.avjindersinghsekhon.minimaltodo.Settings.SettingsFragment;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.ItemTouchHelperClass;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.RecyclerViewEmptySupport;
 import com.example.avjindersinghsekhon.minimaltodo.Utility.StoreRetrieveData;
@@ -148,7 +149,7 @@ public class MainFragment extends AppDefaultFragment {
             public void onClick(View v) {
                 app.send(this, "Action", "FAB pressed");
                 Intent newTodo = new Intent(getContext(), AddToDoActivity.class);
-                ToDoItem item = new ToDoItem("","", false, null, "1");
+                ToDoItem item = new ToDoItem("", "", false, null, "1");
                 int color = ColorGenerator.MATERIAL.getRandomColor();
                 item.setTodoColor(color);
                 //noinspection ResourceType
@@ -424,7 +425,7 @@ public class MainFragment extends AppDefaultFragment {
 
     public void makeUpItems(ArrayList<ToDoItem> items, int len) {
         for (String testString : testStrings) {
-            ToDoItem item = new ToDoItem(testString,testString, false, new Date(),"");
+            ToDoItem item = new ToDoItem(testString, testString, false, new Date(), "");
             //noinspection ResourceType
 //            item.setTodoColor(getResources().getString(R.color.red_secondary));
             items.add(item);
@@ -516,7 +517,43 @@ public class MainFragment extends AppDefaultFragment {
                 holder.mToDoTextview.setMaxLines(2);
             }
             holder.mToDoTextview.setText(item.getToDoText());
-            holder.mToDoTextview.setTextColor(todoTextColor);
+            SettingsFragment settingsFragment = new SettingsFragment();
+            if (settingsFragment.colorMode == true) {
+                switch (item.getmTodoPriority()) {
+                    case "1":
+                        holder.mToDoTextview.setTextColor(Color.GREEN);
+                        break;
+
+                    case "2":
+                        holder.mToDoTextview.setTextColor(Color.GREEN);
+                        break;
+
+                    case "3":
+                        holder.mToDoTextview.setTextColor(Color.GREEN);
+                        break;
+                    case "4":
+                        holder.mToDoTextview.setTextColor(Color.BLUE);
+                        break;
+                    case "5":
+                        holder.mToDoTextview.setTextColor(Color.BLUE);
+                        break;
+                    case "6":
+                        holder.mToDoTextview.setTextColor(Color.BLUE);
+                        break;
+                    case "7":
+                        holder.mToDoTextview.setTextColor(Color.RED);
+                        break;
+                    case "8":
+                        holder.mToDoTextview.setTextColor(Color.RED);
+                        break;
+                    case "9":
+                        holder.mToDoTextview.setTextColor(Color.RED);
+                        break;
+                    default:
+                        System.out.println(" ");
+                        break;
+                }
+            }
 //            holder.mColorTextView.setBackgroundColor(Color.parseColor(item.getTodoColor()));
 
 //            TextDrawable myDrawable = TextDrawable.builder().buildRoundRect(item.getToDoText().substring(0,1),Color.RED, 10);
